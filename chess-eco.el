@@ -36,7 +36,7 @@
   :type 'integer)
 
 (defvar chess-eco-hash-table
-  (when (file-exists-p 
+  (when (file-exists-p
 	 (expand-file-name "chess-eco.fen"
 			   (file-name-directory load-file-name)))
     (with-temp-buffer

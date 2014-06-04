@@ -754,7 +754,7 @@ on an adjoining file is called a passed Pawn."
 		      (setq test (chess-incr-index test (if color -1 1) 0))))
 		  t))
 	      (push index pawns)))))))
-    
+
 (chess-message-catalog 'english
   '((move-from-blank . "Attempted piece move from blank square %s")))
 
@@ -767,7 +767,7 @@ trying to move a blank square."
   (let* ((color (chess-pos-side-to-move position))
 	 (can-castle-kingside (chess-pos-can-castle position (if color ?K ?k)))
 	 (can-castle-queenside (chess-pos-can-castle position (if color ?Q ?q))))
-    
+
     ;; apply the piece movements listed in `changes'
     (let ((ch changes))
       (while ch
@@ -791,7 +791,7 @@ trying to move a blank square."
 					       (if color
 						   chess-direction-south
 						 chess-direction-north)) ? ))
-    
+
     ;; once a piece is moved, en passant is no longer available
     (chess-pos-set-en-passant position nil)
 
