@@ -27,7 +27,7 @@
 (require 'chess-var)
 
 (defgroup chess-crafty nil
-  "The publically available chess engine 'crafty'."
+  "The publicly available chess engine 'crafty'."
   :group 'chess-engine
   :link '(custom-manual "(chess)Crafty"))
 

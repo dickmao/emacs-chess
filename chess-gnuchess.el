@@ -26,7 +26,7 @@
 (require 'chess-pgn)
 
 (defgroup chess-gnuchess nil
-  "The publically available chess engine 'gnuchess'."
+  "The publicly available chess engine 'gnuchess'."
   :group 'chess-engine
   :link '(custom-manual "(chess)GNU Chess")
   :link '(url-link "http://www.gnu.org/software/chess/"))
