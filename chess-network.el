@@ -35,7 +35,7 @@
    (cons "chess match\\(\\s-+\\(.+\\)\\)?$"
 	 (function
 	  (lambda ()
-	    (funcall chess-engine-response-handler 'match
+    (funcall chess-engine-response-handler 'match
 		     (match-string 2)))))
    (cons "fen\\s-+\\(.+\\)"
 	 (function
@@ -144,7 +144,7 @@
 						  (string-to-number
 						   (read-string "Port: ")))
 		    (start-process "*chess-network*"
-				   (current-buffer) "/usr/bin/nc"
+				   (current-buffer) (executable-find "nc")
 				   "-l" "-p" (read-string "Port: ")))
 		(open-network-stream "*chess-network*" (current-buffer)
 				     (read-string "Host: ")
