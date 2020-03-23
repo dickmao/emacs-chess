@@ -105,12 +105,12 @@ COUNT	 = 100000
 # in the file chess-pos.el.
 
 chess-test:
-	echo "$(EMACS) -batch -L $(srcdir) -l chess-test.el -f chess-test '$(DATABASE)' $(START) $(COUNT); rm -f $(top_builddir)/chess-test" > $@
-	chmod u+x $@
+	if [ -s "$(DATABASE)" ]; then \
+	  $(EMACS) -batch -L $(srcdir) -l chess-test.el -f chess-test-database "$(DATABASE)" $(START) $(COUNT); \
+	fi
 
 .PHONY: test test24
 test: $(TESTS) $(ELCFILES)
-	$(top_builddir)/chess-test
 	cask exec ecukes --no-win
 	cask exec ecukes --win
 

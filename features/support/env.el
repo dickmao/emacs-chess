@@ -1,4 +1,5 @@
 (require 'f)
+(require 'ert)
 
 (defvar emacs-chess-support-path
   (f-dirname load-file-name))
@@ -47,7 +48,7 @@
 
 (After
  ;; After each scenario is run
- (when test-display 
+ (when test-display
    (chess-module-destroy test-display)
    (setq test-display nil))
  (dolist (p (process-list))

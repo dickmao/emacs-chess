@@ -55,9 +55,7 @@
 ;;; Code:
 
 (require 'chess-algebraic)
-(require 'chess-display)
 (require 'chess-fen)
-(require 'chess-game)
 (require 'chess-ply)
 (require 'chess-message)
 (require 'mm-decode)

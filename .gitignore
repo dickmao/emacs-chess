@@ -33,3 +33,5 @@
 game.*
 log.*
 /test.out
+.cask
+target

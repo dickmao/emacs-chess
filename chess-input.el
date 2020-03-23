@@ -82,20 +82,11 @@
 		(t (setq i (1+ i) x (1+ x)))))))
     ply))
 
-(defvar chess-display-highlight-legal nil)
-(declare-function chess-display-redraw "chess-display" (&optional display))
-(declare-function chess-display-highlight "chess-display" (display &rest args))
-
 (defun chess-input-display-moves (&optional move-list)
   (unless move-list
     (setq move-list
 	  (delq nil (mapcar #'chess-input-test-move (cdr chess-input-moves)))))
-  (when chess-display-highlight-legal
-    (chess-display-redraw nil))
   (when (> (length chess-input-move-string) 0)
-    (when chess-display-highlight-legal
-      (apply #'chess-display-highlight
-	     nil (delete-dups (mapcar #'chess-ply-target move-list))))
     (message "[%s] %s" chess-input-move-string
 	     (mapconcat (lambda (ply)
 			  (chess-ply-to-algebraic ply chess-input-notation-type))
@@ -168,8 +159,6 @@
 			     (downcase (chess-ply-to-algebraic (cadr moves))))
 		    (setq moves (cdr moves))))
 	   (funcall chess-input-move-function nil (car moves))
-	   (when chess-display-highlight-legal
-	     (chess-display-redraw nil))
 	   (setq chess-input-move-string nil
 		 chess-input-moves nil
 		 chess-input-moves-pos nil))

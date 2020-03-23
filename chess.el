@@ -4,18 +4,9 @@
 
 ;; Author: John Wiegley <johnw@gnu.org>
 ;; Maintainer: Mario Lang <mlang@delysid.org>
-<<<<<<< HEAD
 ;; Version: 2.0.4
 ;; Package-Requires: ((cl-lib "0.5"))
 ;; Keywords: games
-||||||| constructed merge base
-;; Description: Play chess in Emacs
-;; URL: https://github.com/jwiegley/emacs-chess/
-=======
-;; Version: 2.0.1
-;; Package-Requires: ((cl-lib "0.5"))
-;; Keywords: games
->>>>>>> Sync from ELPA.
 ;; Compatibility: Emacs24
 
 ;; This program is free software; you can redistribute it and/or modify

@@ -45,7 +45,7 @@ occurs."
 
 (make-variable-buffer-local 'chess-display-popup)
 
-(defcustom chess-display-highlight-legal t
+(defcustom chess-display-highlight-legal nil
   "If non-nil, highlight legal target squares when a piece is selected."
   :type 'boolean
   :group 'chess-display)
@@ -421,8 +421,7 @@ that is supported by most displays, and is the default mode."
   (chess-display-highlight display :selected index))
 
 (defsubst chess-display-unhighlight-square (display index)
-  (chess-display-highlight display :unselected index)
-)
+  (chess-display-highlight display :unselected index))
 
 (defsubst chess-display-highlight-legal (display pos)
   "Highlight all legal move targets from POS."
@@ -437,8 +436,7 @@ that is supported by most displays, and is the default mode."
   "Unhighlight all legal move targets from POS."
   (dolist (square chess-display-highlighted-legal)
     (chess-display-highlight display :unselected square))
-  (setq chess-display-highlighted-legal nil)
-  )
+  (setq chess-display-highlighted-legal nil))
 
 (defun chess-display-highlight-passed-pawns (&optional display)
   (interactive)
@@ -447,6 +445,14 @@ that is supported by most displays, and is the default mode."
    (append
     (chess-pos-passed-pawns (chess-display-position display) t)
     (chess-pos-passed-pawns (chess-display-position display) nil))))
+
+(defun chess-display-draw-square (display index piece &optional pos)
+  (cl-check-type display (or null buffer))
+  (cl-check-type index (integer 0 63))
+  (chess-with-current-buffer display
+    (cl-check-type pos (or null (number ((point-min)) ((point-max)))))
+    (funcall chess-display-event-handler 'draw-square
+	     (or pos (chess-display-index-pos nil index)) piece index)))
 
 (defun chess-display-paint-move (display ply)
   (cl-check-type display (or null buffer))
@@ -1293,7 +1299,8 @@ to the end or beginning."
          (my-color (chess-game-data game 'my-color))
          (is-pre-move (not (eq my-color (chess-game-side-to-move game))))
          (s-piece (chess-pos-piece position (cdr last-sel)))
-         (t-piece (chess-pos-piece position coord)) ply)
+         (t-piece (chess-pos-piece position coord))
+	 ply)
     (if chess-display-edit-mode
         (progn
           (chess-pos-set-piece position (cdr last-sel) ? )
@@ -1373,8 +1380,7 @@ Clicking once on a piece selects it; then click on the target location."
                          (setq chess-display-last-selected (cons (point) coord))
                          (chess-display-highlight-square nil coord)
                          (if (not chess-display-edit-mode)
-                             (chess-display-highlight-legal nil coord))
-                         )))))
+                             (chess-display-highlight-legal nil coord)))))))
       (if (stringp message)
           (message message)))))
 

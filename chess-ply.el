@@ -68,7 +68,8 @@
   :group 'chess)
 
 (defsubst chess-ply-p (ply)
-  (and (consp ply) (chess-pos-p (car ply))))
+  (and (consp ply) (or (and chess-display-allow-pre-moves (null (car ply)))
+		       (chess-pos-p (car ply)))))
 
 (defsubst chess-ply-pos (ply)
   "Returns the base position associated with PLY."
@@ -411,7 +412,7 @@ position object passed in."
 						  chess-direction-northeast
 						chess-direction-southwest)))
 	      (if (or not-my-turn (chess-pos-piece-p position pos (not color)))
-		  (chess-ply--add nil nil pos)
+		  (chess-ply--add pos)
 		;; check for en passant capture toward kingside
 		(when (and ep (= ep (funcall (if color #'+ #'-) pos 8)))
 		  (chess-ply--add pos))))
@@ -420,7 +421,7 @@ position object passed in."
 						  chess-direction-northwest
 						chess-direction-southeast)))
 	      (if (or not-my-turn (chess-pos-piece-p position pos (not color)))
-		  (chess-ply--add nil nil pos)
+		  (chess-ply--add pos)
 		;; check for en passant capture toward queenside
 		(when (and ep (eq ep (funcall (if color #'+ #'-) pos 8)))
 		  (chess-ply--add pos))))))
@@ -439,7 +440,7 @@ position object passed in."
 		    (chess-ply--add pos)
 		    (setq pos (chess-next-index pos dir)))
 		(if (or not-my-turn (chess-pos-piece-p position pos (not color)))
-		    (chess-ply--add nil nil pos))
+		    (chess-ply--add pos))
 		(setq pos nil)))))
 
 	 ;; the king is a trivial case of the queen, except when castling
